@@ -93,7 +93,7 @@ while (!jeu.partieFinie){
 			y : Int = choisirEntier(type : "colone")
 		}
 		//Le joueur actif pose sa piece, il faut donc la mettre sur le plateau et l'enlever de son deck
-		jeu.posePiece(pos : position, pie: piece)
+		jeu.posePiece(x : x, y : y, p : piece)
 		jeu.affichePlateau()
 	}
 	//Le joueur ne peut pas jouer donc la partie est finie
