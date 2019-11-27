@@ -10,14 +10,14 @@ protocol TJoueur{
 
 	/* supprimer_piece : Joueur x Piece -> Joueur
 	Post : Choisir une pièce existante dans le deck du joueur  */
-	func supprimer_piece(piece : Piece)
+	mutating func supprimer_piece(piece : Piece)
 
 	/* afficher_deck : Joueur -> Joueur 
 	Affiche le deck d'un joueur*/
 	func afficher_deck()
 
 	/* choisir_piece : Joueur -> Piece 
-	choisi une pice dans le deck du joueur*/
+	choisi une piece dans le deck du joueur*/
 	func choisir_piece() -> Piece
 }
 

@@ -34,7 +34,7 @@ protocol TJeu{
 	Pose une piece sur le jeu
 	Pre : La case à cette position doit être vide
 	Post : on vérifie si le joueur a gagné*/
-	func pose_piece(ligne : Int, col : Int, piece : Piece)
+	mutating func pose_piece(ligne : Int, col : Int, piece : Piece)
 
 	/* case_vide : Jeu x Int x Int -> Bool
 	renvoi true si une case du jeu est vide*/
@@ -46,7 +46,7 @@ protocol TJeu{
 
 	/*partieFinie : Jeu -> Bool
 	renvoi true si la partie est finie  */
-	var partieFinie : Bool {get}
+	var partieFinie : Bool {get set}
 
 	/* plateau : Jeu -> [[Case]] 
 	renvoi le plateau du jeu*/
