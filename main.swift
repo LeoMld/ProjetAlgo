@@ -84,7 +84,7 @@ while (!jeu.partieFinie){
 		var x : Int = choisirEntier(type : "ligne")
 		var y : Int = choisirEntier(type : "colone")
 		//Si ce n'est pas possible de poser la piece sur l'emplacement alors le joueur doit recommencer la saisie
-		while(!jeu.peutPoser(pos : position, pie : piece)){
+		while(!jeu.peutPoser(x : x, y : y, p : piece)){
 			//On affiche le plateau et le deck du joueur actif
 			jeu.affichePlateau()
 			actif.afficheDeck()
