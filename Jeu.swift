@@ -49,7 +49,7 @@ protocol TJeu{
 	var partieFinie : Bool {get}
 
 	/* plateau : Jeu -> [[Case]] 
-	renvoi le plateau du jeu*/
+	renvoi le plateau du jeu*/ 
 	var plateau : [[Case]] {get}
 }
 
