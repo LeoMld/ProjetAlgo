@@ -2,7 +2,8 @@ protocol TPiece{
 	/*
 	Création d'une piece:
 	init : String x String -> Piece
-	Pre : String représente une forme existante (rond, triangle, losange, carré) sinon la creation échoue et String une couleur 	existante en unicode */
+	Pre : String représente une forme existante (rond, triangle, losange, carré) écrite en unicode sinon la creation échoue et String une couleur 	existante en unicode 
+ :*/
 	init(forme : String, couleur : String )
 	
 	/* couleur : Piece -> String
@@ -17,6 +18,13 @@ protocol TPiece{
 	var forme : String {get}
 }
 
-
-
- 
+/*
+	Code unicode: 
+	cercle: 25CF 
+	triangle : 25B2
+	losange : 25C6
+	carré : 25A0
+	rouge : 31
+	bleu : 34
+	On affichera donc directement le code unicode ce qui sera très utile pour l'affichage du plateau par exemple  (voir main)
+ */
