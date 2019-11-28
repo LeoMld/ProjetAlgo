@@ -14,7 +14,7 @@ func demandeNom(num : String)->String {
 	}
 	else{
 		print("Oops je ne peux pas accepter ce nom !")
-		return demande_nom(num : num)
+		return demandeNom(num : num)
 	}
 }
 
@@ -29,35 +29,56 @@ func changerActif(actif : Joueur, j1 : Joueur, j2 : Joueur)->Joueur {
 
 func choisirEntier(type : String, inf : Int, sup : Int) -> Int{
 	print("Veuillez choisir une " + type + " : ")
-	let input = readLine()
-	if let result : Int = input {
+	guard let input = readLine() else{
+		return choisirEntier(type : type, inf : inf, sup : sup)
+	}
+	if let result = Int(input) {
 		//On verifie que l'entier est compris entre 1 et 4 car il n'y a que 4 lignes et 4 colones
 		if (result >= inf) && (result <= sup){
 			return result
 		}
 		else{
 			print("Oops cet indice n'est pas valide...")
-			return choisirEntier(type : type)
+			return choisirEntier(type : type, inf : inf, sup : sup)
 		}
 	}
 	else{
 		print("Oops je ne peux pas accepter cela !")
-		return choisirEntier(type : type)
+		return choisirEntier(type : type, inf : inf, sup : sup)
 	}
 }
 
 func affichePlateau(jeu : Jeu){
-	//Fonction qui affiche le plateau
+	var ligne : String
+	print("0\t1\t2\t3\t4")
+	for l in 0...3{
+		ligne = String(l+1)
+		for c in 0...3{
+			if jeu.getCase(ligne : l, col : c).isKindOf(nil){
+				ligne = ligne + " \t"
+			}
+			else{
+				var couleur : String = jeu.getCase(ligne : l, col : c).couleur
+				var forme : String = jeu.getCase(ligne : l, col : c).forme
+				ligne = ligne + "\u{1B}[\(couleur)m\u{\(forme)}\u{1B}[0m\t"
+			}
+
+		}
+	}
 }
+
 
 func afficheDeck(deck : [Piece]){
 	//Fonction qui affiche les pieces dispo
 	var numbers : String = ""
 	var pieces : String = ""
-	var i : Int
-	for i in 0..< deck.count{
+	var couleur : String
+	var forme : String
+	for i in 0..<deck.count{
+		couleur = deck[i].couleur
+		forme = deck[i].forme
 		numbers = numbers + String(i+1) + "\t"
-		pieces = pieces + "\u{1B}[" + deck[i].couleur +"m\u{" + deck[i].forme +"}\u{1B}[0m\t"
+		pieces = pieces + "\u{1B}[\(couleur)m\u{\(forme)}\u{1B}[0m\t"
 	}
 	print(numbers)
 	print(pieces)
@@ -101,7 +122,7 @@ while (!jeu.partieFinie){
 		var pos : Int = choisirEntier(type : "position de choix de piece dans le deck ", inf : 1, sup : actif.nbrePieceDispo())
 		var piece = actif.choisirPiece(pos : pos)
 		var x : Int = choisirEntier(type : "ligne", inf : 1, sup : 4)
-		var y : Int = choisirEntier(type : "colone", inf : 1, sup : 4,)
+		var y : Int = choisirEntier(type : "colone", inf : 1, sup : 4)
 		//Si ce n'est pas possible de poser la piece sur l'emplacement alors le joueur doit recommencer la saisie
 		while(!jeu.peutPoser(ligne : x, col : y, p : piece)){
 			//On affiche le plateau et le deck du joueur actif
