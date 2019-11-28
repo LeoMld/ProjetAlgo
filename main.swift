@@ -67,7 +67,6 @@ func affichePlateau(jeu : Jeu){
 	}
 }
 
-
 func afficheDeck(deck : [Piece]){
 	//Fonction qui affiche les pieces dispo
 	var numbers : String = ""
@@ -78,7 +77,7 @@ func afficheDeck(deck : [Piece]){
 		couleur = deck[i].couleur
 		forme = deck[i].forme
 		numbers = numbers + String(i+1) + "\t"
-		pieces = pieces + "\u{1B}[\(couleur)m\u{\(forme)}\u{1B}[0m\t"
+		pieces = pieces + "\u{1B}[\(couleur)m\u{\(forme)}[m\u{1B}[0m\t"
 	}
 	print(numbers)
 	print(pieces)
@@ -107,7 +106,7 @@ else {
 }
 
 //La partie commence
-print("La partie peut commencer...")
+print("La partie va commencer...")
 
 while (!jeu.partieFinie){
 	//On passe au joueur suivant
@@ -145,4 +144,7 @@ while (!jeu.partieFinie){
 	}
 }
 //La partie est finie, on affiche le vainqueur
-print("Bravo " + actif.nom + ", tu as gagné la partie !")
+//La ligne en dessous est une image convertie en ascii, vous verrez bien a quoi elle ressemble quand vous reussirez a compiler...
+let win : String = "\n                                     zmKKKbpw                                   \n                                  zKPPKPPEKKKK                                  \n                                  KPKKKKPIIKKK                                  \n                                  TWHKEKP5IKKPN                                 \n w                                  ELppp0bKpKK                                 \n  KbN   n                           TPEpPPKKbKL                                 \n  fKKKKK5N                           DppKKKEMl 8w                               \n    f9phKKvc                zKBBKKKKKKBMKKC   jKKKKKKKWmw                  zmf  \n       TEaKBNp             4KKKKKKKKKKM FXPl  KKKKKKKKKKKKW           LcIKKC    \n      jWKBBBBBBWp        gBKKKKKKKKKKBH jKN  1KKNKKKKKKKBKKp        bppKfl      \n       f9KKKBBBKBBWpzw0BKKKKKKKKKKKKKHH PIK jKKKKKKKKKKKKKKK     aB pKC         \n          f9KKKKKBKKKKKKKKKKKKKKKKKKK EAPKK KKKKKKKKKKKKKKKKKWwmKKKNWK          \n             l9KBBKBKKKKBKKKKKKKKKKKN LPKPEjKKKKKKKKKKKKKKKKKKKKBBKKM           \n                TKKKKKKKKRKKKKKKKKKKH 1hKP5KKKKKKKKKKKKKKKKKKKKBBKRl            \n                          1KKKKKKKKK  1KbP1KKKKKKKKKKKKN TRBKBBKMl              \n                          BKKKKKKKKM  1PbPKBKKKKKKKKKKKN     ll                 \n                    tpp t 555555555l  55555555KKKKKKKKKN                        \n                     KBBKKKKKKDDDDDDDDKKKKKKKKNEKKKKKKM                         \n\n"
+print(win)
+print("                     Bravo " + actif.nom + ", tu as gagné la partie !")
