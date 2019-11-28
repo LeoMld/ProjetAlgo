@@ -2,7 +2,7 @@ protocol TPiece{
 	/*
 	Création d'une piece:
 	init : String x String -> Piece
-	Pre : String représente une forme existante (rond, triangle, losange, carré) écrite en unicode sinon la creation échoue et String une couleur 	existante en unicode 
+	Pre : String représente une forme existante (rond, triangle, losange, carré) écrite en unicode sinon la creation échoue et String une couleur existante en unicode (voir code unicoode en dessous)
  :*/
 	init(forme : String, couleur : String )
 	

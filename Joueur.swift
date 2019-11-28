@@ -17,7 +17,7 @@ protocol TJoueur{
 
 	/* supprimePiece : Joueur x Piece -> Joueur
 	Pre : Choisir une pièce existante dans le deck du joueur  
-	Post : la piece sera supprimée du deck du joueur donc cette piece 	sera remplacée par nil dans le deck */
+	Post : la piece sera supprimée du deck du joueur donc cette piece 	sera remplacée par vide dans le deck */
 	mutating func supprimePiece(piece : Piece)
 
 	/* deck : Joueur -> [Case]

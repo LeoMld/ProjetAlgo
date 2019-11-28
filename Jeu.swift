@@ -5,20 +5,23 @@ protocol TJeu{
 	init()
 
 	/*
-	Fonctions qui vont indiuer si il y a 4 formes différentes dans une 	ligne/colonne/zone donnée 
-	Pre : donner une ligne et une colone connue (compisent entre 1 et 	4)
-	Post : Fonctions qui vont renvoyer true si il y a bien 4 formes 	différente dans une ligne/colonne/zone*/
-	/* ligne_complete : Jeu x Int -> Bool */
+	Fonctions qui vont indiquer si il y a 4 formes différentes dans une ligne/colonne/zone donnée 
+	Pre : donner une ligne et une colone connue (comprisent entre 1 et 	4)
+	Post : Fonctions qui vont renvoyer true si il y a bien 4 formes 	différente dans une ligne/colonne/zone false sinon*/
+	/* ligne_complete : Jeu x Int -> Bool 
+	Pre : Int représente la ligne du plateau*/
 	func ligne_complete(ligne : Int) -> Bool
-	/* colonne_complete : Jeu x Int -> Bool */
+	/* colonne_complete : Jeu x Int -> Bool 
+	Pre : Int représente la colonne du plateau*/
 	func colonne_complete(col : Int) -> Bool
-	/* zone_complete : Jeu x Int x Int -> Bool */
+	/* zone_complete : Jeu x Int x Int -> Bool 
+	Pre : Int x Int reprérentent la ligne/colonne du plateau*/
 	func zone_complete(ligne : Int, col : Int) -> Bool
 
 
-	/* Fonctions qui vont envoyer false si la ligne/colonne/zone 		contient une pièce de même forme et de couleur différente que la 	pièce courante 
+	/* Fonctions qui vont envoyer false si la ligne/colonne/zone 		contient une pièce de même forme ET de couleur différente que la 	pièce courante 
 	Pre : donner une ligne et une colone connue (comprisent entre 1 et 	4)
-	Post : renvoi true si la piece est contenu sur le plateau dans la 	ligne/colonne/zone indiquée, false sinon */
+	Post : renvoi true si la piece passée en paramètre est contenue sur le plateau dans la 	ligne/colonne/zone indiquée, false sinon */
 	/* ligne_contient : Jeu x Int x Piece -> Bool 
 	Pre : Int représente la ligne du plateau où l'on veut chercher */
 	func ligne_contient(ligne : Int, piece : Piece) -> Bool
@@ -38,12 +41,12 @@ protocol TJeu{
 
 	// getCase : Jeu x Int x Int -> Case
 	// retourne une case du plateau
-	// Pre : Int x Int représente la ligne / colonne du plateau et Piece
+	// Pre : Int x Int représente la ligne / colonne du plateau et Piece represente la piece que l'on souhaite poser
 	func getCase(ligne : Int, col: Int) -> Case
 
 	/* peutJouer : Jeu x Joueur -> Bool
 	indique si le joueur peut jouer 
-	Post : envoi true si un joueur peut jouer ou bien false si il ne 	peut plus poser de piece, en effet si le joueur est bloqué (aucune 	de ses pièces ne peut être poser sur le plateau et il n'a pas 		gagné */
+	Post : envoi true si un joueur peut jouer ou bien false si il ne 	peut plus poser de piece, en effet si le joueur est bloqué (aucune 	de ses pièces ne peut être poser sur le plateau et il n'a pas 		gagné )*/
 	func peutJouer(j : Joueur) -> Bool
 
 	/* posePiece : Jeu x Int x Int x Piece -> Jeu 
