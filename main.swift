@@ -83,8 +83,10 @@ func afficheDeck(deck : [Piece]){
 	print(pieces)
 }
 /*---------------------------------------------------------------------------------------------------------------*/
-
-print("Vous venez de lancer le Quantik !\nPressez [ENTER] pour continuer")
+//La ligne en dessous est une image convertie en ascii, pour la lire il faut finir l'implementation...
+let quantik : String = "   ____  _    _         _   _ _______ _____ _  __\n  / __ \\| |  | |  /\\   | \\ | |__   __|_   _| |/ /\n | |  | | |  | | /  \\  |  \\| |  | |    | | | ' / \n | |  | | |  | |/ /\\ \\ | . ` |  | |    | | |  <  \n | |__| | |__| / ____ \\| |\\  |  | |   _| |_| . \\ \n  \\___\\_\\_____/_/    \\_\\_| \\_|  |_|  |_____|_|\\_\\\n"
+print(quantik)
+print("           Pressez [ENTER] pour continuer\n")
 let pass = readLine()//Pour n'afficher le reste que si le joueur reagit
 
 //Definition et affectation des joueurs et du jeu
