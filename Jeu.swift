@@ -1,7 +1,7 @@
 protocol TJeu{
 	/* CreerJeu: -> Jeu 
 	Création d'un jeu 
-	Post : créé le plateau contenant des case qui seroont donc toutes 	vides*/
+	Post : créé le plateau contenant 8 cases qui seront donc toutes 	vides, indique que la partie n'est pas finie (var PartieFinie)*/
 	init()
 
 	/*
@@ -59,7 +59,8 @@ protocol TJeu{
 	var partieFinie : Bool {get set}
 
 	/* plateau : Jeu -> [[Case]] 
-	renvoi le plateau du jeu*/ 
+	renvoi le plateau du jeu
+	Post : Le plateau contiendra 8 cases*/
 	var plateau : [[Case]] {get}
 }
 
