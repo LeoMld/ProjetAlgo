@@ -14,7 +14,7 @@ protocol TJeu{
 
 
 	/* Fonctions qui vont envoyer false si la ligne/colonne/zone contient une pièce de même forme et de couleur différente que la pièce courante 
-	Pre : donner une ligne et une colone connue*/
+	Pre : donner une ligne et une colone connue (comprisent entre 1 et 4) */
 	/* ligne_contient : Jeu x Int x Piece -> Bool */
 	func ligne_contient(ligne : Int, piece : Piece) -> Bool
 	/* colonne_contient : Jeu x Int x Piece -> Bool */
@@ -23,18 +23,19 @@ protocol TJeu{
 	func zone_contient(ligne : Int, col : Int, piece : Piece) -> Bool
 
 	/* peut_poser : Jeu x Int x Int x Piece -> Bool
-	envoi true si le joueur peut poser une pièce a une position */
+	envoi true si le joueur peut poser une pièce a une position 
+	 */
 	func peut_poser(ligne : Int, col : Int, piece : Piece) -> Bool
 
 	/* peut_jouer : Jeu x Joueur -> Bool 
-	envoi true si un joueur peut jouer ou bien false si il ne peut plus poser de piece*/
+	envoi true si un joueur peut jouer ou bien false si il ne peut plus poser de piece, en effet si le joueur est bloqué, */
 	func peut_jouer(j : Joueur) -> Bool
 
 	/* pose_piece : Jeu x Int x Int x Piece -> Jeu 
 	Pose une piece sur le jeu
 	Pre : La case à cette position doit être vide
-	Post : on vérifie si le joueur a gagné*/
-	func pose_piece(ligne : Int, col : Int, piece : Piece)
+	Post : on vérifie si le joueur a gagné (ligne/colonne/zone est complète)*/
+	mutating func pose_piece(ligne : Int, col : Int, piece : Piece)
 
 	/* case_vide : Jeu x Int x Int -> Bool
 	renvoi true si une case du jeu est vide*/
@@ -46,7 +47,7 @@ protocol TJeu{
 
 	/*partieFinie : Jeu -> Bool
 	renvoi true si la partie est finie  */
-	var partieFinie : Bool {get}
+	var partieFinie : Bool {get set}
 
 	/* plateau : Jeu -> [[Case]] 
 	renvoi le plateau du jeu*/ 
