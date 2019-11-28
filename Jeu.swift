@@ -36,16 +36,21 @@ protocol TJeu{
 	 */
 	func peutPoser(ligne : Int, col : Int, piece : Piece) -> Bool
 
+	// getCase : Jeu x Int x Int -> Case
+	// retourne une case du plateau
+	// Pre : Int x Int représente la ligne / colonne du plateau et Piece
+	func getCase(ligne : Int, col: Int) -> Case
+
 	/* peutJouer : Jeu x Joueur -> Bool
 	indique si le joueur peut jouer 
 	Post : envoi true si un joueur peut jouer ou bien false si il ne 	peut plus poser de piece, en effet si le joueur est bloqué (aucune 	de ses pièces ne peut être poser sur le plateau et il n'a pas 		gagné */
 	func peutJouer(j : Joueur) -> Bool
 
-	/* pose_piece : Jeu x Int x Int x Piece -> Jeu 
+	/* posePiece : Jeu x Int x Int x Piece -> Jeu 
 	Pose une piece sur le plateau du jeu
 	Pre : Int x Int représente la position (ligne/colonne) du jeu, la 	case à cette position doit être vide. actif représente le joueur 	actif à ce tour de jeu. Piece représente une case du deck 			contenant une pièce donc une case différente de nil
-	Post : on vérifie si le joueur a gagné (ligne/colonne/zone est 		complète) et on retire la pièce du deck du joueur actif*/
-	mutating func posePiece(ligne : Int, col : Int, piece : Piece, actif : Joueur)
+	Post : on vérifie si le joueur a gagné (ligne/colonne/zone est 		complète) */
+	mutating func posePiece(ligne : Int, col : Int, piece : Piece)
 
 	/* case_vide : Jeu x Int x Int -> Bool
 	indique si la case du plateau est vide
@@ -60,7 +65,7 @@ protocol TJeu{
 
 	/* plateau : Jeu -> [[Case]] 
 	renvoi le plateau du jeu
-	Post : Le plateau contiendra 8 cases*/
+	Post : Le plateau contiendra 4*4 cases*/
 	var plateau : [[Case]] {get}
 }
 

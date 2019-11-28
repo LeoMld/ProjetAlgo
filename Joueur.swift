@@ -4,24 +4,30 @@ protocol TJoueur{
 	Pre : la couleur représente une couleur existante en unicode */
 	init(nom : String, couleur: String)
 
-	/* pieces_dispo : Joueur -> [Piece]
+	/* piecesDispo : Joueur -> [Piece]
 	Renvoi les pieces disponibles dans le deck du joueur
 	Post : renvoi un tableau contenant uniquement les cases non vide*/
-	func pieces_dispo() -> [Piece]
+	func piecesDispo() -> [Piece]
 
-	/* supprimer_piece : Joueur x Piece -> Joueur
+	// nbrePieceDispo : Joueur -> Int
+	// Renvoi le nombre de piece dispo du joueur
+	// Post :  renvoi le nbre de cases non vide du deck
+	func nbrePieceDispo() -> Int
+
+	/* supprimePiece : Joueur x Piece -> Joueur
 	Pre : Choisir une pièce existante dans le deck du joueur  
 	Post : la piece sera supprimée du deck du joueur donc cette piece 	sera remplacée par nil dans le deck */
-	mutating func supprimer_piece(piece : Piece)
+	mutating func supprimePiece(piece : Piece)
 
-	/* afficher_deck : Joueur -> Joueur 
-	Affiche le deck d'un joueur*/
-	func afficher_deck()
+	/* deck : Jeu -> [Case]]
+	renvoi le deck du joueur
+	Post : Le deck contiendra 8 cases*/
+	var deck : [Case] {get set}
 
-	/* choisir_piece : Joueur -> Piece 
+	/* choisirPiece : Joueur x Int -> Piece 
 	choisi une piece dans le deck du joueur
-	Pre : donner un entier qui représente une case où une pièce est 	dispo 	dans le deck (1≤Int≤8)*/
-	func choisir_piece(pos : Int) -> Piece
+	Pre : Int représente un entier qui l'indice de la piece dans le deck la case choisi ne devra PAS etre vide (1≤Int≤8)*/
+	func choisirPiece(pos : Int) -> Piece
 }
 
  
