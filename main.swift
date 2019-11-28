@@ -88,7 +88,8 @@ while (!jeu.partieFinie){
 			//On affiche le plateau et le deck du joueur actif
 			jeu.affichePlateau()
 			actif.afficheDeck()
-			piece = actif.choisirPiece()
+			var pos : Int = choisirEntier(type : "position de choix de 				piece dans le deck ")
+			piece = actif.choisirPiece(pos : pos)
 			x : Int = choisirEntier(type : "ligne")
 			y : Int = choisirEntier(type : "colone")
 		}
