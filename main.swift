@@ -84,7 +84,7 @@ while (!jeu.partieFinie){
 		var x : Int = choisirEntier(type : "ligne")
 		var y : Int = choisirEntier(type : "colone")
 		//Si ce n'est pas possible de poser la piece sur l'emplacement alors le joueur doit recommencer la saisie
-		while(!jeu.peutPoser(x : x, y : y, p : piece)){
+		while(!jeu.peutPoser(ligne : x, col : y, p : piece)){
 			//On affiche le plateau et le deck du joueur actif
 			jeu.affichePlateau()
 			actif.afficheDeck()
@@ -93,7 +93,7 @@ while (!jeu.partieFinie){
 			y : Int = choisirEntier(type : "colone")
 		}
 		//Le joueur actif pose sa piece, il faut donc la mettre sur le plateau et l'enlever de son deck
-		jeu.posePiece(x : x, y : y, p : piece)
+		jeu.posePiece(ligne : x, col : y, p : piece)
 		jeu.affichePlateau()
 	}
 	//Le joueur ne peut pas jouer donc la partie est finie
