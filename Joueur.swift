@@ -1,7 +1,8 @@
 protocol TJoueur{
 	/*CreerJoueur(String x Bool) -> Joueur
 	Post : ne pas oublier d'initialiser le deck du joueur qui 			possèdera donc 8 Pieces placée dans des cases en début de partie,
-	Pre : la couleur représente une couleur existante en unicode */
+	Pre : la couleur représente une couleur existante en unicode 
+	ATTENTION, la couleur n'est pas un paramètre de Joueur il servira juste a créer le deck de ce joueur avec la bonne couleur de piece */
 	init(nom : String, couleur: String)
 
 	/* piecesDispo : Joueur -> [Piece]
@@ -19,10 +20,14 @@ protocol TJoueur{
 	Post : la piece sera supprimée du deck du joueur donc cette piece 	sera remplacée par nil dans le deck */
 	mutating func supprimePiece(piece : Piece)
 
-	/* deck : Jeu -> [Case]]
+	/* deck : Joueur -> [Case]
 	renvoi le deck du joueur
 	Post : Le deck contiendra 8 cases*/
 	var deck : [Case] {get set}
+
+	/* nom : Joueur -> String
+	renvoi le nom du joueur*/
+	var nom : String {get}
 
 	/* choisirPiece : Joueur x Int -> Piece 
 	choisi une piece dans le deck du joueur
