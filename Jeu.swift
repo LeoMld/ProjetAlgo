@@ -4,7 +4,7 @@ protocol TJeu{
 	init()
 
 	/* Fonctions qui vont renvoyer true si il y a bien 4 formes différente dans une ligne/colonne/zone
-	Pre : donner une ligne et une colone connue */
+	Pre : donner une ligne et une colone connue (comprisent entre 1 et 4) */
 	/* ligne_complete : Jeu x Int -> Bool */
 	func ligne_complete(ligne : Int) -> Bool
 	/* colonne_complete : Jeu x Int -> Bool */
@@ -23,6 +23,7 @@ protocol TJeu{
 	func zone_contient(ligne : Int, col : Int, piece : Piece) -> Bool
 
 	/* peut_poser : Jeu x Int x Int x Piece -> Bool
+	Pre : donner une ligne et une colone connue (comprisent entre 1 et 4)
 	envoi true si le joueur peut poser une pièce a une position 
 	 */
 	func peut_poser(ligne : Int, col : Int, piece : Piece) -> Bool
