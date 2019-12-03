@@ -4,18 +4,14 @@ protocol TJeu{
 	Post : créé le plateau contenant 8 cases qui seront donc toutes 	vides, indique que la partie n'est pas finie (var PartieFinie)*/
 	init()
 
-<<<<<<< HEAD
-	/* Fonctions qui vont renvoyer true si il y a bien 4 formes différente dans une ligne/colonne/zone
-	Pre : donner une ligne et une colone connue (comprisent entre 1 et 4) */
-	/* ligne_complete : Jeu x Int -> Bool */
-=======
+
 	/*
 	Fonctions qui vont indiquer si il y a 4 formes différentes dans une ligne/colonne/zone donnée 
 	Pre : donner une ligne et une colone connue (comprisent entre 1 et 	4)
 	Post : Fonctions qui vont renvoyer true si il y a bien 4 formes 	différente dans une ligne/colonne/zone false sinon*/
 	/* ligne_complete : Jeu x Int -> Bool 
 	Pre : Int représente la ligne du plateau*/
->>>>>>> 759821ab9d31a8be3ad070a79b0306553c8d4737
+
 	func ligne_complete(ligne : Int) -> Bool
 	/* colonne_complete : Jeu x Int -> Bool 
 	Pre : Int représente la colonne du plateau*/
