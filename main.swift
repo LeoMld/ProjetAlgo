@@ -18,15 +18,6 @@ func demandeNom(num : String)->String {
 	}
 }
 
-func changerActif(actif : Joueur, j1 : Joueur, j2 : Joueur)->Joueur {
-	if (actif == j1){
-		return j2
-	}
-	else{
-		return j1
-	}
-}
-
 func choisirEntier(type : String, inf : Int, sup : Int) -> Int{
 	print("Veuillez choisir une " + type + " : ")
 	guard let input = readLine() else{
@@ -58,8 +49,8 @@ func affichePlateau(jeu : Jeu){
 				ligne = ligne + " \t"
 			}
 			else{
-				var couleur : String = jeu.getCase(ligne : l, col : c).couleur
-				var forme : String = jeu.getCase(ligne : l, col : c).forme
+				var couleur : String = jeu.getCase(ligne : l, col : c).getCouleur()
+				var forme : String = jeu.getCase(ligne : l, col : c).getForme()
 				ligne = ligne + "\u{1B}[\(couleur)m\u{\(forme)}\u{1B}[0m\t"
 			}
 
@@ -67,15 +58,15 @@ func affichePlateau(jeu : Jeu){
 	}
 }
 
-func afficheDeck(deck : [Piece]){
+func afficheDeck(joueur : Joueur){
 	//Fonction qui affiche les pieces dispo
 	var numbers : String = ""
 	var pieces : String = ""
 	var couleur : String
 	var forme : String
 	for i in 0..<deck.count{
-		couleur = deck[i].couleur
-		forme = deck[i].forme
+		couleur = joueur.piecesDispo()[i].getCouleur()
+		forme = joueur.piecesDispo()[i].getForme()
 		numbers = numbers + String(i+1) + "\t"
 		pieces = pieces + "\u{1B}[\(couleur)m\u{\(forme)}[m\u{1B}[0m\t"
 	}
@@ -93,60 +84,45 @@ let pass = readLine()//Pour n'afficher le reste que si le joueur reagit
 var nom1 : String = demandeNom(num : "1")
 var nom2 : String = demandeNom(num : "2")
 
-var joueur1 : Joueur = Joueur(nom : nom1, couleur : "31")//31 est le code unicode pour rouge
-var joueur2 : Joueur = Joueur(nom : nom2, couleur : "34")//34 est le code unicode pour bleu
+var joueur1 : Joueur = Joueur(nom : nom1, couleur : Couleur.rouge)
+var joueur2 : Joueur = Joueur(nom : nom2, couleur : Couleur.bleu)
 
-var jeu : Jeu = Jeu()
-
-//On choisit un joueur au hasard
-var actif : Joueur
-if Bool.random(){
-	actif = joueur1
-}
-else {
-	actif = joueur2
-}
+var jeu : Jeu = Jeu(j1 : joueur1, j2 : joueur2)
 
 //La partie commence
 print("La partie va commencer...")
 
-while (!jeu.partieFinie){
+while (!jeu.isPartieFinie()){
 	//On passe au joueur suivant
-	actif = changerActif(actif : actif, j1 : joueur1, j2 : joueur2)
+	jeu.changerJoueurCourant()
 	//Le joueur peut jouer
-	if (jeu.peutJouer(actif)){
-		print(actif.nom + " c'est à toi de jouer !")
+	
+	print(jeu.getJoueurCourant().getNom() + " c'est à toi de jouer !")
+	//On affiche le plateau et le deck du joueur actif
+	affichePlateau(jeu : jeu)
+	afficheDeck(jeu.getJoueurCourant())
+	//Le joueur actif doit choisir son emplacement et sa piece
+	var pos : Int = choisirEntier(type : "position de choix de piece dans le deck ", inf : 1, sup : jeu.getJoueurCourant().nbrePieceDispo())
+	var piece : Piece = jeu.getJoueurCourant().piecesDispo()[pos-1]
+	var x : Int = choisirEntier(type : "ligne", inf : 1, sup : 4)
+	var y : Int = choisirEntier(type : "colone", inf : 1, sup : 4)
+	//Si ce n'est pas possible de poser la piece sur l'emplacement alors le joueur doit recommencer la saisie
+	while(!jeu.peutPoser(ligne : x, col : y, p : piece)){
 		//On affiche le plateau et le deck du joueur actif
-		affichePlateau()
-		actif.afficheDeck(actif.piecesDispo())
-		//Le joueur actif doit choisir son emplacement et sa piece
-		var pos : Int = choisirEntier(type : "position de choix de piece dans le deck ", inf : 1, sup : actif.nbrePieceDispo())
-		var piece = actif.choisirPiece(pos : pos)
-		var x : Int = choisirEntier(type : "ligne", inf : 1, sup : 4)
-		var y : Int = choisirEntier(type : "colone", inf : 1, sup : 4)
-		//Si ce n'est pas possible de poser la piece sur l'emplacement alors le joueur doit recommencer la saisie
-		while(!jeu.peutPoser(ligne : x, col : y, p : piece)){
-			//On affiche le plateau et le deck du joueur actif
-			affichePlateau(jeu : jeu)
-			actif.afficheDeck(actif.piecesDispo())
-			pos = choisirEntier(type : "position de choix de piece dans le deck ", inf : 1, sup : actif.nbrePieceDispo())
-			piece = actif.choisirPiece(pos : pos)
-			x = choisirEntier(type : "ligne", inf : 1, sup : 4)
-			y = choisirEntier(type : "colone", inf : 1, sup : 4)
-		}
-		//Le joueur actif pose sa piece, il faut donc la mettre sur le plateau et l'enlever de son deck
-		jeu.posePiece(ligne : x, col : y, piece : piece)
-		actif.supprimePiece(piece : piece)
-		affichePlateau()
+		affichePlateau(jeu : jeu)
+		afficheDeck(jeu.getJoueurCourant())
+		pos = choisirEntier(type : "position de choix de piece dans le deck ", inf : 1, sup : jeu.getJoueurCourant().nbrePieceDispo())
+		piece = jeu.getJoueurCourant().piecesDispo()[pos-1]
+		x = choisirEntier(type : "ligne", inf : 1, sup : 4)
+		y = choisirEntier(type : "colone", inf : 1, sup : 4)
 	}
-	//Le joueur ne peut pas jouer donc la partie est finie
-	else{
-		jeu.partieFinie = true
-		actif = changerActif(actif : actif, j1 : joueur1, j2 : joueur2)
-	}
+	//Le joueur actif pose sa piece, il faut donc la mettre sur le plateau et l'enlever de son deck
+	jeu.posePiece(ligne : x, col : y, piece : piece)
+	jeu.getJoueurCourant().supprimePiece(piece : piece)
+	affichePlateau(jeu : jeu)
 }
 //La partie est finie, on affiche le vainqueur
 //La ligne en dessous est une image convertie en ascii, vous verrez bien a quoi elle ressemble quand vous reussirez a compiler...
 let win : String = "\n                                     zmKKKbpw                                   \n                                  zKPPKPPEKKKK                                  \n                                  KPKKKKPIIKKK                                  \n                                  TWHKEKP5IKKPN                                 \n w                                  ELppp0bKpKK                                 \n  KbN   n                           TPEpPPKKbKL                                 \n  fKKKKK5N                           DppKKKEMl 8w                               \n    f9phKKvc                zKBBKKKKKKBMKKC   jKKKKKKKWmw                  zmf  \n       TEaKBNp             4KKKKKKKKKKM FXPl  KKKKKKKKKKKKW           LcIKKC    \n      jWKBBBBBBWp        gBKKKKKKKKKKBH jKN  1KKNKKKKKKKBKKp        bppKfl      \n       f9KKKBBBKBBWpzw0BKKKKKKKKKKKKKHH PIK jKKKKKKKKKKKKKKK     aB pKC         \n          f9KKKKKBKKKKKKKKKKKKKKKKKKK EAPKK KKKKKKKKKKKKKKKKKWwmKKKNWK          \n             l9KBBKBKKKKBKKKKKKKKKKKN LPKPEjKKKKKKKKKKKKKKKKKKKKBBKKM           \n                TKKKKKKKKRKKKKKKKKKKH 1hKP5KKKKKKKKKKKKKKKKKKKKBBKRl            \n                          1KKKKKKKKK  1KbP1KKKKKKKKKKKKN TRBKBBKMl              \n                          BKKKKKKKKM  1PbPKBKKKKKKKKKKKN     ll                 \n                    tpp t 555555555l  55555555KKKKKKKKKN                        \n                     KBBKKKKKKDDDDDDDDKKKKKKKKNEKKKKKKM                         \n\n"
 print(win)
-print("                     Bravo " + actif.nom + ", tu as gagné la partie !")
+print("                     Bravo " + jeu.getJoueurCourant().getNom() + ", tu as gagné la partie !")

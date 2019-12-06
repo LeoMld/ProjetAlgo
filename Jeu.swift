@@ -1,8 +1,9 @@
 protocol TJeu{
-	/* CreerJeu: -> Jeu 
+	/* CreerJeu: Joueur x Joueur -> Jeu 
 	Création d'un jeu 
-	Post : créé le plateau contenant 8 cases qui seront donc toutes 	vides, indique que la partie n'est pas finie (var PartieFinie)*/
-	init()
+	Post : créé le plateau contenant 4x4 cases qui seront donc toutes vides, indique que la partie n'est pas finie (var partieFinie)
+			definit aleatoirement un joueur courant pour pouvoir commencer la partie (var joueurCourant) */
+	init(j1 : Joueur, j2 : Joueur)
 
 
 	/*
@@ -34,9 +35,6 @@ protocol TJeu{
 	Pre : Int x Int représente la ligne x colonne du plateau où l'on 	veut chercher*/
 	func zone_contient(ligne : Int, col : Int, piece : Piece) -> Bool
 
-
-
-
 	/* peutPoser : Jeu x Int x Int x Piece -> Bool
 	indique si un joueur peut poser une piece a une position
 	Pre : Int x Int représente la ligne / colonne du plateau et Piece 	une case du deck contenant une pièce donc une case différente de 	nil
@@ -48,17 +46,16 @@ protocol TJeu{
 	// getCase : Jeu x Int x Int -> Case
 	// retourne une case du plateau
 	// Pre : Int x Int représente la ligne / colonne du plateau et Piece represente la piece que l'on souhaite poser
-	func getCase(ligne : Int, col: Int) -> Case
+	func getCase(ligne : Int, col : Int) -> Case
 
 	/* peutJouer : Jeu x Joueur -> Bool
 	indique si le joueur peut jouer 
-	Post : envoi true si un joueur peut jouer ou bien false si il ne 	peut plus poser de piece, en effet si le joueur est bloqué (aucune 	de ses pièces ne peut être poser sur le plateau et il n'a pas 		gagné )*/
+	Post : envoi true si un joueur peut jouer ou bien false si il ne peut plus poser de piece, en effet si le joueur est bloqué (aucune 	de ses pièces ne peut être poser sur le plateau et il n'a pas gagné )*/
 	func peutJouer(j : Joueur) -> Bool
 
 	/* posePiece : Jeu x Int x Int x Piece -> Jeu 
 	Pose une piece sur le plateau du jeu
-	Pre : Int x Int représente la position (ligne/colonne) du jeu, la 	case à cette position doit être vide. actif représente le joueur 	actif à ce tour de jeu. Piece représente une case du deck 			contenant une pièce donc une case différente de nil
-	Post : on vérifie si le joueur a gagné (ligne/colonne/zone est 		complète) */
+	Pre : Int x Int représente la position (ligne/colonne) du jeu, la case à cette position doit être vide.*/
 	mutating func posePiece(ligne : Int, col : Int, piece : Piece)
 
 	/* case_vide : Jeu x Int x Int -> Bool
@@ -67,15 +64,23 @@ protocol TJeu{
 	Post : renvoi true si la du jeu est vide false sinon*/
 	func case_vide(ligne : Int, col : Int) -> Bool
 
+	/* changerJoueurCourant : Jeu x Joueur -> Joueur
+	Change le joueur courant
+	Pre : Le joueur courant est soit le joueur1 soit le joueur2 
+	Post : Si le joueur courant est joueur1 on renvoie joueur2 et inversement*/
+	mutating func changerJoueurCourant() -> Joueur
+
+	/* changerJoueurCourant : Jeu x Joueur -> Joueur
+	Change le joueur courant
+	Pre : Le joueur courant est soit le joueur1 soit le joueur2 
+	Post : Si le joueur courant est joueur1 on renvoie joueur2 et inversement*/
+	func getJoueurCourant() -> Joueur
+
 	/*partieFinie : Jeu -> Bool
 	Indique si la partie est finie
+	Pre : On verifie que le joueur peut poser une piece et qu'aucune ligne/colone/zone n'est complete
 	Post : renvoi true si la partie est finie false sinon*/
-	var partieFinie : Bool {get set}
-
-	/* plateau : Jeu -> [[Case]] 
-	renvoi le plateau du jeu
-	Post : Le plateau contiendra 4*4 cases*/
-	var plateau : [[Case]] {get}
+	mutating func isPartieFinie() -> Bool
 }
 
 
